@@ -1,3 +1,7 @@
+/**
+ * @fileoverview
+ * Color maze soution in js
+ */
 
 const sequence = ["O", "G"];
 const maze = [
@@ -13,7 +17,7 @@ function solve(sequence, maze) {
     const cols = maze[0].length;
 
     const colors = (function *(i = 0) {
-        while (true) 
+        while (true)
             yield sequence[i++ % sequence.length];
     }());
     let paths = maze[rows - 1]
@@ -26,14 +30,14 @@ function solve(sequence, maze) {
     for (let color of colors) {
         color;
         paths = paths
-            .filter(path => 
+            .filter(path =>
                 path.i < rows &&
         path.i >= 0 &&
         path.j < cols &&
         path.j >= 0
             )
             .filter(path => maze[path.i][path.j] === color)
-            .reduce((acc, path) => 
+            .reduce((acc, path) =>
                 acc.concat(
                     [
                         {di: 1, dj: 0},
@@ -41,7 +45,7 @@ function solve(sequence, maze) {
                         {di: 0, dj: -1},
                         {di: 0, dj: 1}
                     ]
-                        .map(dir => 
+                        .map(dir =>
                             ({
                                 i: path.i + dir.di,
                                 j: path.j + dir.dj,
@@ -58,7 +62,7 @@ function solve(sequence, maze) {
 }
 
 const path = solve(sequence, maze);
-// console.log("path: ", JSON.stringify(path,null,2));
+console.log("path: ", JSON.stringify(path,null,2));
 
 function printPathInMaze(maze,path){
     const blank = Array(maze.length).fill("_").map(()=> Array(maze.length).fill("_"));
